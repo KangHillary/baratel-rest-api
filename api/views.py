@@ -2,11 +2,13 @@ from rest_framework.views import APIView
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
+from . import permissions
 
-from . import serializers
+from . import serializers, models
 
-class ProductsApiview(APIView):
-    serializer_class = serializers.ProductsSerializers
+class ProfilesApiview(APIView):
+    serializer_class = serializers.ProfilesSerializers
 
     def get(self,request,format=None):
         an_apiview = [
@@ -42,8 +44,8 @@ class ProductsApiview(APIView):
         return Response({'method':'delete'})
 
 
-class ProductsViewSet(viewsets.ViewSet):
-    serializer_class = serializers.ProductsSerializers
+class ProfileViewset(viewsets.ViewSet):
+    serializer_class = serializers.ProfilesSerializers
 
     def list(self,request):
         a_viewset = [
@@ -80,6 +82,17 @@ class ProductsViewSet(viewsets.ViewSet):
     def destroy(self,request,pk=None):
         '''Handle remove an object'''
         return Response({'http_method':'DELETE'})
+
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """handle create and update user profiles"""
+    serializer_class = serializers.UserProfileSerializer
+    queryset = models.Userprofile.objects.all()
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (permissions.UpdateOwnProfile,)
+
+
+
 
 
 
