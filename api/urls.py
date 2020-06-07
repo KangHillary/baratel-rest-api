@@ -5,7 +5,7 @@ from . import views
 router = DefaultRouter()
 router.register('hello-viewset',views.ProfileViewset,base_name='hello-viewset')
 router.register('profile',views.UserProfileViewSet)
-
+router.register('feed',views.UserProfileFeedViewSet)
 
 urlpatterns = [
     path('profiles/', views.ProfilesApiview.as_view()),
