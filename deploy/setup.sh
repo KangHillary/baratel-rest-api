@@ -3,9 +3,9 @@
 set -e
 
 # TODO: Set to URL of git repo.
-PROJECT_GIT_URL='https://github.com/CHANGEME.git'
+PROJECT_GIT_URL='https://github.com/KangHillary/baratel-rest-api.git'
 
-PROJECT_BASE_PATH='/usr/local/apps/profiles-rest-api'
+PROJECT_BASE_PATH='/usr/local/apps/baratel-rest-api'
 
 echo "Installing dependencies..."
 apt-get update
@@ -32,7 +32,7 @@ $PROJECT_BASE_PATH/env/bin/python manage.py collectstatic --noinput
 cp $PROJECT_BASE_PATH/deploy/supervisor_profiles_api.conf /etc/supervisor/conf.d/profiles_api.conf
 supervisorctl reread
 supervisorctl update
-supervisorctl restart profiles_api
+supervisorctl restart api
 
 # Configure nginx
 cp $PROJECT_BASE_PATH/deploy/nginx_profiles_api.conf /etc/nginx/sites-available/profiles_api.conf
